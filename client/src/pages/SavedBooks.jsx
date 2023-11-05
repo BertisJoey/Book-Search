@@ -5,7 +5,6 @@ import {
   Row,
   Col
 } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
 
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ME } from '../utils/queries';
