@@ -1,9 +1,9 @@
 const typeDefs =`
     type User {
         _id: ID!
-        username: String!
-        email: String!
-        password: String!
+        username: String
+        email: String
+        password: String
         bookCount: Int
         savedBooks: [Book] 
     }
@@ -35,7 +35,7 @@ const typeDefs =`
         addUser(username: String!, email: String!, password: String!): Auth
         loginUser(email: String!, password: String!): Auth
 
-        saveBook(newBook: BookInput): User
+        saveBook(newBook: BookInput!): User
         removeBook(bookId: ID!): User
     }
 `;

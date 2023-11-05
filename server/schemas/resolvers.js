@@ -26,7 +26,7 @@ const resolvers = {
                 throw new AuthenticationError;
             }
 
-            const correctPw = await User.isCorrectPassword(password);
+            const correctPw = await user.isCorrectPassword(password);
             if (!correctPw) {
                 throw new AuthenticationError;
             }
@@ -35,16 +35,16 @@ const resolvers = {
             return { token, user };
         },
 
-        saveBook: async (parent, { newBook }, context) => {
+        saveBook: async (parent, { userId, newBook }, context) => {
             if (context.user) {
                 const updatedUser = await User.findByIdAndUpdate(
-                    { _id: context.user_id },
+                    { _id: userId },
                     { $addToSet: {savedBooks: newBook}},
-                    { new: true }
+                    { new: true, runValidators: true, }
                 )
                 return updatedUser;
             }
-            throw new AuthenticationError;
+            throw AuthenticationError;
         },
 
         removeBook: async (parent, { bookId }, context) => {
