@@ -5,7 +5,7 @@ const resolvers = {
     Query: {
         me: async (parent, args, context) => {
             if (context.user) {
-                const data = User.findOne({ _id: context.user_id }).select('-__v -password');
+                const data = User.findOne({ _id: context.user._id }).select('-__v -password');
                 return data;
             }
             throw AuthenticationError;
@@ -50,7 +50,7 @@ const resolvers = {
         removeBook: async (parent, { bookId }, context) => {
             if (context.user) {
                 const updatedUser = await User.findByIdAndUpdate(
-                    { _id: context.user_id },
+                    { _id: context.user._id },
                     { $pull: { savedBooks: { bookId }}},
                     { new: true }
                 );
